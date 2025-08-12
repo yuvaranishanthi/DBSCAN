@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Customer Cluster Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+            color: #444;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        select:focus, input:focus {
+            border-color: #2575fc;
+            box-shadow: 0px 0px 5px rgba(37, 117, 252, 0.5);
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #1a5cd8;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2575fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bank Customer Cluster Prediction</h2>
+        <form method="POST">
+            {% for feature in features %}
+                <label>{{ feature|capitalize }}:</label>
+                {% if feature in dropdown_options %}
+                    <select name="{{ feature }}" required>
+                        {% for option in dropdown_options[feature] %}
+                            <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="number" name="{{ feature }}" step="any" required>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result">Prediction: {{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
